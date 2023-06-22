@@ -7,3 +7,13 @@
     <img src="C:\Users\chris\Downloads\kenrick-mills-MF9Wy1NA55I-unsplash (1).jpg" alt="About Image">
 </body>
 </html>
+
+
+.image-style {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+}
