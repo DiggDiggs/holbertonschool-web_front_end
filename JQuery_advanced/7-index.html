@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Task 7 - Alternative</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 20px;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        input[type="text"] {
+            padding: 8px;
+        }
+
+        input[type="submit"] {
+            padding: 8px;
+            cursor: pointer;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            padding: 10px;
+        }
+
+        p {
+            margin: 0;
+        }
+
+        span {
+            font-weight: bold;
+        }
+
+        b {
+            color: #0066cc;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script type="application/javascript">
+        $(document).ready(function () {
+            createSearchForm();
+
+            function createSearchForm() {
+                $("body").append(
+                    "<form id='searchForm'>" +
+                    "<input type='text' placeholder='Search Wikipedia'>" +
+                    "<input type='submit' value='Search'>" +
+                    "</form>" +
+                    "<ul id='resultList'></ul>"
+                );
+
+                $("#searchForm").submit(function (event) {
+                    event.preventDefault();
+                    queryWikipedia($("input[type='text']").val());
+                });
+            }
+
+            function addNewArticle(id, title, snippet) {
+                var listItem = $("<li></li>");
+                var firstParagraph = $("<p><span>ID - </span><b>" + title + "</b></p>");
+                var secondParagraph = $("<p>" + snippet + "</p>");
+
+                listItem.append(firstParagraph, secondParagraph);
+                $("#resultList").append(listItem);
+            }
+
+            function queryWikipedia(search) {
+                var apiUrl = "https://en.wikipedia.org/w/api.php";
+                var data = {
+                    action: "query",
+                    list: "search",
+                    srsearch: search,
+                    format: "json",
+                };
+
+                $.ajax({
+                    url: apiUrl,
+                    data: data,
+                    dataType: "jsonp",
+                    success: function (result) {
+                        $("#resultList").empty();
+                        result.query.search.forEach(function (item) {
+                            addNewArticle(item.pageid, item.title, item.snippet);
+                        });
+                    },
+                    error: function (error) {
+                        console.error("Error fetching data from Wikipedia:", error);
+                    }
+                });
+            }
+        });
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>
