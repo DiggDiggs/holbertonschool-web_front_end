@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Task 5</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"
+        integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
+    <script type="application/javascript">
+        $(document).ready(function () {
+            createFamilyTree();
+
+            // Function to create the family tree structure
+            function createFamilyTree() {
+                $("body").append("<table><thead><tr><th>Firstname</th><th>Lastname</th></tr></thead><tbody></tbody></table>");
+            }
+
+            // Function to add a new family member
+            function addNewMember(firstName, lastName) {
+                // Append a new row with three cells
+                $("tbody").append("<tr><td>" + firstName + "</td><td>" + lastName + "</td><td>(x)</td></tr>");
+
+                // Add CSS to the third cell for an orange background
+                $("tbody tr:last td:last").css("background-color", "orange");
+
+                // Add a click event to remove the row on click
+                $("tbody tr:last td:last").click(function () {
+                    $(this).closest("tr").remove();
+                });
+            }
+
+            // Generate a fake table with family members
+            addNewMember("Guillaume", "Salva");
+            addNewMember("Arielle", "Snizt");
+            addNewMember("Fanette", "Snizt");
+            addNewMember("Gerard", "Snizt");
+            addNewMember("Victor", "Salva");
+        });
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>
