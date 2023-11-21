@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>7-index</title>
+</head>
+<body>
+	<script>
+		const availableItems = [
+			'Shampoo',
+			'Soap',
+			'Sponge',
+			'Water'
+		];
+
+		function ssTest() {
+			let test = 'test';
+			try {
+				sessionStorage.setItem('test', 'test');
+				sessionStorage.removeItem('test');
+				return true;
+			} catch (e) {
+				return false;
+			}
+		}
+
+		if (ssTest() === true) {
+			createStore();
+			displayCart();
+		} else {
+			window.alert("Sorry, your browser does not support Web storage. Try again with a better one");
+		}
+
+		function getCartFromStorage() {
+			if (window.sessionStorage.cart) {
+				return (JSON.parse(windows.sessionStorage.cart));
+			}
+			return {};
+		}
+
+		function addItemToCart(item) {
+			const myCart = getCartFromStorage();
+
+			if (myCart[item]) {
+				myCart[item] += 1
+			} else {
+				myCart[item] = 1;
+			}
+
+			window.sessionStorage.setItem('cart', JSON.stringify(myCart));
+			displayCart();
+		}
+
+		function removeItemFromCart(item) {
+			const myCart = getCartFromStorage();
+
+			myCart[item].remove();
+
+			window.sessionStorage.setItem('cart', JSON.stringify(myCart));
+			displayCart();
+		}
+
+		function clearCart() {
+			windows.sessionStorage.clear();
+			displayCart();
+		}
+
+		function createStore() {
+			const myH2 = document.createElement('h2');
+			myH2.innerHTML = 'Available products:';
+			document.body.appendChild(myH2);
+
+			const myUL = document.createElement('ul');
+			document.body.appendChild(myUL);
+
+			for (let i = 0; i < availableItems.length; i++) {
+				const myData = document.createElement("li");
+				myData.innerHTML = availableItems[i];
+				myData.addEventListener("click", function () {
+					addItemToCart(this.innerHTML);
+				})
+				document.querySelector("ul").append(myData);
+			}
+		}
+
+		function displayCart() {
+			const myH2 = document.createElement('h2');
+			myH2.innerHTML = 'Your cart:';
+			document.body.appendChild(myH2);
+
+			myDiv = document.querySelector('#cart-div');
+			if (!myDiv) {
+				const myDiv = document.createElement('div');
+				myDiv.setAttribute('id', 'cart-div');
+				document.body.appendChild(myDiv);
+			} else {
+				myDiv.innerHTML = "";
+			}
+			updateCart();
+		}
+
+		function updateCart() {
+			const myCart = getCartFromStorage;
+			const cartDiv = document.querySelector('#cart-div');
+			const cartItems = document.createElement('ul');
+
+			cartDiv.appendChild(cartItems);
+		}
+
+	</script>
+</body>
+</html>
