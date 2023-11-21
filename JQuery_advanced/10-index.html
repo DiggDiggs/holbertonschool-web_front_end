@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Task 10</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+    <script type="application/javascript">
+        // Function to add a post row to the body
+        function addPostRow(data) {
+            $("body").append("<p><span>Post created with id " + data.id + ", title: " + data.title + ", author: " +
+                data.author + "</span></p>");
+        }
+
+        // Function to list posts by querying the local server
+        function listPosts() {
+            $.ajax({
+                url: "http://localhost:3000/posts", // Assuming your local server is running on port 3000
+                type: "GET",
+                success: function (response) {
+                    // Call addPostRow for each element in the response
+                    response.forEach(function (post) {
+                        addPostRow(post);
+                    });
+                },
+                error: function () {
+                    // Display an alert for server error
+                    alert("Server Error");
+                }
+            });
+        }
+
+        // Call listPosts when the page loads
+        $(document).ready(function () {
+            listPosts();
+        });
+    </script>
+
+</body>
+
+</html>
