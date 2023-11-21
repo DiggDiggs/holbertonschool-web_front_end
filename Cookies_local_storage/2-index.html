@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2. Read cookie</title>
+    <script src="src/index.js"></script>
+</head>
+
+<body>
+    <h1>Login to the website</h1>
+    <div class="login">
+        <label for="firstname">Firstname:</label>
+        <input id="firstname" type="text" placeholder="Enter your firstname">
+        <label for="email">Email:</label>
+        <input id="email" type="email" name="email" placeholder="Enter your email">
+        <button onclick="setCookies()">Log me in</button>
+    </div>
+    <div class="cookies">
+        <h2>Cookies Information</h2>
+        <button onclick="showCookies()">Show the cookies</button>
+    </div>
+
+    <!-- Scripts for Cookie Manipulation -->
+    <script>
+        // 2. Read cookie
+
+        function setCookies() {
+            // Get values from input fields
+            let firstname = document.getElementById('firstname').value;
+            let email = document.getElementById('email').value;
+            // set expiration date to 10 days from now
+            let date = new Date();
+            date.setTime(date.getTime() + (10 * 24 * 60 * 60 * 1000));
+            let expireDate = "expires=" + date.toUTCString();
+
+            // Set cookies with expiration and path
+            document.cookie = `firstname=${firstname}; ${expireDate}; path=/`;
+            document.cookie = `email=${email}; ${expireDate}; path=/`;
+        }
+
+        function showCookies() {
+            // Get the values of the firstname and email cookies
+            const firstname = getCookie('firstname');
+            const email = getCookie('email');
+
+            // create a new paragraph element
+            let para = document.createElement('p');
+
+            // Get cookies & render as inner HTML of the paragraph
+            para.innerHTML = `Email: ${email} - Firstname: ${firstname}`;
+
+            // append paragraph to body
+            document.body.appendChild(para);
+        }
+
+        function getCookie(name) {
+            // encode cookie name to handle special characters
+            name = encodeURIComponent(name);
+
+            // split document cookie on semicolons and spaces
+            const cookieArr = document.cookie.split('; ');
+
+            // loop through cookies and split each cookie into name and value
+            for (let i = 0; i < cookieArr.length; i++) {
+                const cookiePair = cookieArr[i].split('=');
+
+                // if the cookie name matches key, return the cookie value
+                if (cookiePair[0] === name) {
+                    return decodeURIComponent(cookiePair[1]);
+                }
+            }
+            // if the cookie name is not found return an empty string
+            return '';
+        }
+    </script>
+</body>
+
+</html>

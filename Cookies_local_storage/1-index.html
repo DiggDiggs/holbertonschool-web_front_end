@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Cookie with Expiration Date and Specific Path</title>
+    <script src="src/index.js"></script>
+</head>
+
+<body>
+    <h1>Login to the Website</h1>
+    <div>
+        <label for="firstname">Firstname:</label>
+        <input id="firstname" type="text" placeholder="Enter your firstname">
+        <label for="email">Email:</label>
+        <input id="email" type="email" name="email" placeholder="Enter your email">
+        <button onclick="setCookies()">Log In</button>
+    </div>
+    <div>
+        <h2>Cookies Information</h2>
+        <button onclick="showCookies()">Show Cookies</button>
+    </div>
+
+    <!-- Scripts for Cookie Manipulation -->
+    <script>
+        // 1. Create cookie with expiration date and specific path
+
+        function setCookies() {
+            let firstname = document.getElementById('firstname').value;
+            let email = document.getElementById('email').value;
+
+            let date = new Date();
+            date.setTime(date.getTime() + (10 * 24 * 60 * 60 * 1000)); // 10 days expiration
+            let expireDate = "expires=" + date.toUTCString();
+
+            // Set cookies with expiration and path
+            document.cookie = `firstname=${firstname}; ${expireDate}; path=/`;
+            document.cookie = `email=${email}; ${expireDate}; path=/`;
+        }
+
+        function showCookies() {
+            // create a new paragraph element
+            let para = document.createElement('p');
+
+            // Get cookies & render as inner HTML of the paragraph
+            para.innerHTML = "Cookies: " + document.cookie;
+
+            // append paragraph to body
+            document.body.appendChild(para);
+        }
+    </script>
+</body>
+
+</html>
