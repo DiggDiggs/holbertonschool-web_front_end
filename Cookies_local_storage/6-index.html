@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>5-index</title>
+</head>
+<body>
+	<script>
+		const availableItems = [
+			'Shampoo',
+			'Soap',
+			'Sponge',
+			'Water'
+		]
+
+		function ssTest() {
+			let test = 'test';
+			try {
+				sessionStorage.setItem('test', 'test');
+				sessionStorage.removeItem('test');
+				return true;
+			} catch (e) {
+				return false;
+			}
+		}
+
+		if (ssTest() === true) {
+			createStore();
+			displayCart();
+		} else {
+			window.alert("Sorry, your browser does not support Web storage. Try again with a better one");
+		}
+		
+		function addItemToCart(item) {
+			window.sessionStorage.setItem(item, true);
+		}
+
+		function createStore() {
+			const myUL = document.createElement('ul');
+			document.body.appendChild(myUL);
+			for (let i = 0; i < availableItems.length; i++) {
+				const myData = document.createElement("li");
+				myData.innerHTML = availableItems[i];
+				myData.addEventListener("click", function () {
+					addItemToCart(this.innerHTML);
+				})
+				document.querySelector("ul").append(myData);
+			}
+		}
+
+		function displayCart() {
+			if (window.sessionStorage.length != 0) {
+				let myMessage = document.createElement("p");
+				myMessage.innerHTML = `You previously had ${window.sessionStorage.length} items in your cart`;
+				document.body.appendChild(myMessage);
+			}
+		}
+	</script>
+</body>
+</html>
