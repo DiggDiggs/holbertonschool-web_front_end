@@ -1,0 +1,19 @@
+{
+    "name": "cookie-project",
+    "version": "1.0.0",
+    "description": "Cookie Project",
+    "main": "index.js",
+    "scripts": {
+      "start": "webpack serve --open",
+      "build": "webpack"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+      "webpack": "^5.62.1",
+      "webpack-cli": "^4.9.1",
+      "webpack-dev-server": "^4.5.0"
+    }
+  }
+  
